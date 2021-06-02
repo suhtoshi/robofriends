@@ -3,7 +3,6 @@ import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import ErrorBoundry from '../components/ErrorBoundry';
-import {robots} from '../robots';
 import './App.css'
 
 class App extends Component{
@@ -16,19 +15,10 @@ class App extends Component{
     }
 
     componentDidMount(){
-        this.setState({robots: robots});
+        fetch('https://jsonplaceholder.typicode.com/users')
+                .then(response => response.json())
+                .then(users => this.setState({robots: users}));
     }
-
-
-    // Commented this out to add friends names. Can remove comment and remove import to
-    // return to normal
-
-    
-    // componentDidMount(){
-    //     fetch('https://jsonplaceholder.typicode.com/users')
-    //             .then(response => response.json())
-    //             .then(users => this.setState({robots: users}));
-    // }
 
     onSearchChange = (event) => {
         this.setState({searchfield: event.target.value})
